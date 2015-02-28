@@ -13,8 +13,8 @@ def bite():
         # add time to db for end
 
 def send_message_to(number, message):
-    account_sid = "ACf7a09c3e97621e105d110cb2c456b122"
-    auth_token = "b87ebdc709ce3b36679709cda9378821"
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV["TWILIO_AUTH"]
     client = TwilioRestClient(account_sid, auth_token)
     message = client.messages.create(body=message,
         to=number, # Replace with your phone number

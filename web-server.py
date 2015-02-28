@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 from twilio.rest import TwilioRestClient
 
-@app.route("/bite"i, methods=['POST'])
+@app.route("/bite", methods=['POST'])
 def bite():
     if (request.form["message"]):
         send_message_to("4407592260", "Stop biting your nails!!!")

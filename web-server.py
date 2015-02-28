@@ -10,8 +10,9 @@ def bite():
     if (request.form["message"] == "start"):
         send_message_to("4407592260", "Stop biting your nails!!!")
         # add time to db for start
+        return "start"
     else:
-        pass
+        return "end"
         # add time to db for end
 
 def send_message_to(number, message):

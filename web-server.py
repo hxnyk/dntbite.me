@@ -2,6 +2,7 @@
 from flask import Flask
 app = Flask(__name__)
 from twilio.rest import TwilioRestClient
+import os
 
 @app.route("/bite", methods=['POST'])
 def bite():

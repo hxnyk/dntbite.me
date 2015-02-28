@@ -6,7 +6,7 @@ import os
 
 @app.route("/bite", methods=['POST'])
 def bite():
-    print request.form["message"]
+    print request.form
     # if (request.form["message"] == "start"):
     #     send_message_to("4407592260", "Stop biting your nails!!!")
     #     # add time to db for start

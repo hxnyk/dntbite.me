@@ -1,29 +1,21 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="icon.png">
 
-    <title>progress -- dnt bite me</title>
-
+	<script src="chart.js"></script>
     <script src="jquery-2.1.3.js"></script>
 	<script src="bootstrap.js"></script>
+	<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
     <title>dnt bite me</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap2.css" rel="stylesheet">
     <link href="dashboard.css" rel="stylesheet">
 
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -55,22 +47,45 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
+          <h1 class="page-header">Your progress thus far:</h1>
 
-
+		<canvas id="progressChart" width="800px" height="400px"></canvas>
+				
+		<script type="text/javascript">
+			var progressData = {
+			labels : ["January","February","March","April","May","June"],
+			datasets : [
+				{
+					fillColor : "rgba(172,194,132,0.4)",
+					strokeColor : "#ACC26D",
+					pointColor : "#fff",
+					pointStrokeColor : "#9DB86D",
+					data : [203,156,99,251,305,247]
+				}]}
+			var progressChart = document.getElementById('progressChart').getContext('2d');
+			new Chart(progressChart).Line(progressData);
+			
+			// FIREBASE : Get a reference to our posts
+			var ref = new Firebase("https://docs-examples.firebaseio.com/web/saving-data/fireblog/posts");
+			// Retrieve new posts as they are added to Firebase
+			ref.on("child_added", function(snapshot) {
+			  var newTime = snapshot.val();
+			  console.log("time" + newTime.author);
+			});
+			
+		</script>		  
+		  <hr>
+		  
 			<div class="list-group">
-			  <a href="#" class="list-group-item">
-				<h4><b>Your progress thus far:</b></h4>
-			  </a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x}} seconds!</a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x/60}} minutes!</a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x/3600}} hours!</a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x/25200}} days!</a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x/6048000}} weeks!</a>
-			  <a href="#" class="list-group-item">You've been bite free for the past {{x/31556926}} years!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x}} seconds!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x/60}} minutes!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x/3600}} hours!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x/25200}} days!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x/6048000}} weeks!</a>
+				<a href="#" class="list-group-item">You've been bite free for the past {{x/31556926}} years!</a>
 			</div>
-		  
-		  
+					
+				
           </div>
         </div>
       </div>

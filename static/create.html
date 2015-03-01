@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="jquery-2.1.3.js"></script>
 
   </head>
 
@@ -19,7 +20,7 @@
 	<form name="postListing" style="padding-left: 5vw;">
 		<div class="form-group">
 			<label>Name: </label>
-			<input type="text" class="form-control" placeholder="Enter your name" id="newname">
+			<input type="name" class="form-control" placeholder="Enter your name" id="newname">
 		</div>
 		
 		<div class="form-group">
@@ -28,20 +29,20 @@
 		</div>		
 		
 		<div class="form-group">
-			<label>Email: </label>
-			<input type="email" class="form-control" placeholder="Enter your email" id="newemail">
+			<label>Username: </label>
+			<input type="username" class="form-control" placeholder="Enter your username" id="newusername">
 		</div>
 		
 		<div class="form-group">
 			<label>Phone number: </label>
-			<input type="text" class="form-control" placeholder="Enter your cell phone number" id="newnumber">
+			<input type="number" class="form-control" placeholder="Enter your cell phone number" id="newnumber">
 		</div>
 	</form>
 	
 	<hr>
 
 		<center>
-			<button type="button" class="btn btn-primary btn-lg" style="width: 15vw;" type="submit">Create</button>
+			<button type="button" class="btn btn-primary btn-lg" style="width: 15vw;" type="submit" onClick="submit()">Create</button>
 			<a href="index.html">
 			<button type="button" class="btn btn-primary btn-lg" style="width: 15vw;">Back</button></a>
 		</center>
@@ -49,4 +50,23 @@
     </div> <!-- /container -->
 
 	</body>
+	<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+	<script>
+		function submit() {
+			// Load posts from firebase
+      		var ref = new Firebase("dntbite.firebaseio.com/users");
+      		
+			var formName = $("#newname").val().toLowerCase();
+			var formPassword = $("#newpassword").val();
+			var formUsername = $("#newusername").val();
+			var formNumber = $("#newnumber").val();
+			var lastBitten = new Date().getTime() / 1000;
+			ref.child(formUsername).set({
+					password:formPassword,
+					name:formName,
+					number:formNumber,
+					lastBittenTime:lastBitten
+				})
+		}
+	</script>
 </html>

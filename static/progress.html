@@ -77,18 +77,21 @@
 		  <hr>
 		  
 			<div class="list-group">
-				<a href="#" class="list-group-item">You've been bite free for the past {{x}} seconds!</a>
-				<a href="#" class="list-group-item">You've been bite free for the past {{x/60}} minutes!</a>
-				<a href="#" class="list-group-item">You've been bite free for the past {{x/3600}} hours!</a>
-				<a href="#" class="list-group-item">You've been bite free for the past {{x/25200}} days!</a>
-				<a href="#" class="list-group-item">You've been bite free for the past {{x/6048000}} weeks!</a>
-				<a href="#" class="list-group-item">You've been bite free for the past {{x/31556926}} years!</a>
+				<a href="#" id="ticker" class="list-group-item">You've been bite free for the past {{x}} seconds!</a>
 			</div>
-					
-				
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script>
+    // Load posts from firebase
+    var ref = new Firebase("dntbite.firebaseio.com/users/neil");
+    ref.child("lastBittenTime").once(
+        "value", function(data) {
+        var bittenTime = data.val();
+        var currentTime = new Date().getTime() / 1000;
+        document.getElementById("ticker").innerHTML = "You've been bite free for the past " + (Math.round(currentTime - bittenTime)).toString() + " seconds!";
+    })
+  </script>
 </html>

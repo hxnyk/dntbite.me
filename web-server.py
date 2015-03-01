@@ -19,7 +19,7 @@ def home():
 
 @app.route("/bite", methods=['POST'])
 def bite():
-    send_message_to("4407592260", "Stop biting your nails!!!")
+    #send_message_to("4407592260", "Stop biting your nails!!!")
     return "Bite"
 
 port = int(os.environ.get("PORT", 5000))

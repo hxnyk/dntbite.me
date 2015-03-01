@@ -13,6 +13,10 @@ def send_message_to(number, message):
         to=number,
         from_="2262402483")
 
+@app.route("/")
+def home():
+    return "Hello"
+
 @app.route("/bite", methods=['POST'])
 def bite():
     print request.form['message']

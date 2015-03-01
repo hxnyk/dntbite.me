@@ -118,7 +118,7 @@
     // Load posts from firebase
     var ref = new Firebase("dntbite.firebaseio.com/users/neil");
     var bittenTime = 0.0;
-    ref.child("lastBittenTime").once(
+    ref.child("lastBittenTime").on(
         "value", function(data) {
         bittenTime = data.val();
     })

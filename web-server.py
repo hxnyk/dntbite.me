@@ -24,7 +24,7 @@ def home():
 
 @app.route("/bite", methods=['POST'])
 def bite():
-    #send_message_to("4407592260", "Stop biting your nails!!!")
+    send_message_to("4407592260", "Stop biting your nails!!!")
     # add to firebase with current unix time
     t = time.time()
     to_send = json.dumps(t)

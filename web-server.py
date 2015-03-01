@@ -4,6 +4,7 @@ from twilio.rest import TwilioRestClient
 import os
 import requests
 import time
+import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -24,7 +25,8 @@ def home():
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")
     # add to firebase with current unix time
-    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data={"time": str(time.localtime())}).text
+    requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=json.dumps(time.time()))
+    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=json.dumps(time.time())).text
 
 @app.route("/<file_name>.<ext>")
 def send_file(file_name, ext):

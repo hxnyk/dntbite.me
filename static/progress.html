@@ -25,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">dnt bite me, neil</a>
+          <a class="navbar-brand">dnt bite me, neil</a>
         </div>
       </div>
     </nav>
@@ -42,7 +42,7 @@
 				<a href="settings.html" style="padding:3vh; font-size: 1.25em">Settings</a>
 			</li>
             <li>
-				<a href="#" style="padding:3vh; font-size: 1.25em">Log Out</a>
+				<a href="index.html" style="padding:3vh; font-size: 1.25em">Log Out</a>
 			</li>			
           </ul>
         </div>
@@ -77,7 +77,7 @@
 		  <hr>
 		  
 			<div class="list-group">
-				<a href="#" id="ticker" class="list-group-item">You've been bite free for the past {{x}} seconds!</a>
+				<a href="#" id="ticker" class="list-group-item">You've been bite free for the past 0 seconds!</a>
 			</div>
           </div>
         </div>
@@ -94,8 +94,19 @@
     })
     setInterval(updateTicker, 1000);
     function updateTicker() {
-    	var currentTime = new Date().getTime() / 1000;
-    	document.getElementById("ticker").innerHTML = "You've been bite free for the past " + (Math.round(currentTime - bittenTime)).toString() + " seconds!";
+    	var secondsSince = Math.round((new Date().getTime() / 1000) - bittenTime);
+    	if (secondsSince < 60) {
+	    	document.getElementById("ticker").innerHTML = "You've been bite free for the past " + secondsSince.toString() + " second(s)!";
+    	} else if(secondsSince < 3600) {
+    		var minutesSince = Math.floor(secondsSince/60);
+    		var secondsSince = secondsSince - minutesSince*60;
+    		document.getElementById("ticker").innerHTML = "You've been bite free for the past " + minutesSince.toString() + " minute(s) and " + secondsSince.toString() + " second(s)!";
+    	} else if(secondsSince < 3600*24) {
+			var hoursSince = Math.floor(secondsSince/3600);
+    		var minutesSince = Math.floor((secondsSince - hoursSince*3600)/60);
+    		var secondsSince = secondsSince - hoursSince*3600 - minutesSince*60;
+    		document.getElementById("ticker").innerHTML = "You've been bite free for the past " + hoursSince.toString() + " hour(s), " + minutesSince.toString() + " minute(s) and " + secondsSince.toString() + " second(s)!";
+    	}
     }
   </script>
 </html>

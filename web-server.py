@@ -4,6 +4,7 @@ from twilio.rest import TwilioRestClient
 import os
 import requests
 import time
+import datetime
 import json
 
 app = Flask(__name__)
@@ -25,7 +26,16 @@ def home():
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")
     # add to firebase with current unix time
-    to_send = json.dumps(time.time())
+    t = time.time()
+    to_send = json.dumps(t)
+    date = time.mktime(datetime.date.fromtimestamp(t))
+    counts = json.parse(requests.get("https://dntbite.firebaseio.com/users/neil/counts.json"))
+    if date in counts:
+        counts[date] += 1
+    else:
+        counts[date] = 1
+
+    requests.put("https://dntbite.firebaseio.com/users/neil/counts.json", data =json.dumps(counts))
     requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=to_send)
     return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
 

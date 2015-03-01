@@ -28,7 +28,7 @@ def bite():
     # add to firebase with current unix time
     t = time.time()
     to_send = json.dumps(t)
-    date = time.mktime(datetime.date.fromtimestamp(t))
+    date = time.mktime(datetime.date.fromtimestamp(t).timetuple())
     counts = json.loads(requests.get("https://dntbite.firebaseio.com/users/neil/counts.json")) or {}
     if date in counts:
         counts[date] += 1

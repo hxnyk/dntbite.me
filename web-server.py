@@ -28,17 +28,16 @@ def bite():
     # add to firebase with current unix time
     t = time.time()
     to_send = json.dumps(t)
-    date = time.mktime(datetime.date.fromtimestamp(t).timetuple())
+    date = int(time.mktime(datetime.date.fromtimestamp(t).timetuple()))
     counts = json.loads(requests.get("https://dntbite.firebaseio.com/users/neil/counts.json").text) or {}
     if date in counts:
         counts[date] += 1
     else:
         counts[date] = 1
 
-    a = requests.put("https://dntbite.firebaseio.com/users/neil/counts.json", data=json.dumps(counts))
+    requests.put("https://dntbite.firebaseio.com/users/neil/counts.json", data=json.dumps(counts))
     requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=to_send)
-    requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
-    return json.dumps(counts)
+    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
 
 @app.route("/<file_name>.<ext>")
 def send_file(file_name, ext):

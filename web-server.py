@@ -17,7 +17,7 @@ def send_message_to(number, message):
 def home():
     return "Hello"
 
-@app.route("/bite", methods=['POST'])
+@app.route("/bite")
 def bite():
     print request.form['message']
     if (request.form["message"] == "start"):

@@ -25,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">dnt bite me, {{name}}</a>
+          <a class="navbar-brand" href="#">dnt bite me, neil</a>
         </div>
       </div>
     </nav>
@@ -87,11 +87,15 @@
   <script>
     // Load posts from firebase
     var ref = new Firebase("dntbite.firebaseio.com/users/neil");
+    var bittenTime = 0.0;
     ref.child("lastBittenTime").once(
         "value", function(data) {
-        var bittenTime = data.val();
-        var currentTime = new Date().getTime() / 1000;
-        document.getElementById("ticker").innerHTML = "You've been bite free for the past " + (Math.round(currentTime - bittenTime)).toString() + " seconds!";
+        bittenTime = data.val();
     })
+    setInterval(updateTicker, 1000);
+    function updateTicker() {
+    	var currentTime = new Date().getTime() / 1000;
+    	document.getElementById("ticker").innerHTML = "You've been bite free for the past " + (Math.round(currentTime - bittenTime)).toString() + " seconds!";
+    }
   </script>
 </html>

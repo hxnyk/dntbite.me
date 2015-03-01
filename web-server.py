@@ -29,7 +29,7 @@ def bite():
     t = time.time()
     to_send = json.dumps(t)
     date = time.mktime(datetime.date.fromtimestamp(t))
-    counts = json.parse(requests.get("https://dntbite.firebaseio.com/users/neil/counts.json"))
+    counts = json.loads(requests.get("https://dntbite.firebaseio.com/users/neil/counts.json")) or {}
     if date in counts:
         counts[date] += 1
     else:

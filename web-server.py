@@ -1,5 +1,5 @@
 # Main web server
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from twilio.rest import TwilioRestClient
 import os
 
@@ -15,7 +15,7 @@ def send_message_to(number, message):
 
 @app.route("/")
 def home():
-    return "Hello"
+    return send_from_directory(os.getcwd(), "static/index.html")
 
 @app.route("/bite", methods=['POST'])
 def bite():

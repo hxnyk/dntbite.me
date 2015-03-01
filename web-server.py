@@ -17,16 +17,10 @@ def send_message_to(number, message):
 def home():
     return "Hello"
 
-@app.route("/bite")
+@app.route("/bite", methods=['POST'])
 def bite():
-    print request.form['message']
-    if (request.form["message"] == "start"):
-        send_message_to("4407592260", "Stop biting your nails!!!")
-        # add time to db for start
-        return "start"
-    else:
-        return "end"
-        # add time to db for end
+    send_message_to("4407592260", "Stop biting your nails!!!")
+    return "Bite"
 
 port = int(os.environ.get("PORT", 5000))
 app.run(host='0.0.0.0', port=port)

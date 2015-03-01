@@ -18,13 +18,6 @@ def send_message_to(number, message):
 def home():
     return send_from_directory(os.getcwd(), "static/index.html")
 
-@app.route("/signup", methods=['POST'])
-def new_user():
-    name = request.form["newname"]
-    password = request.form["newpassword"]
-    email  = request.form["newemail"]
-    phone_no = request.form["newnumber"]
-
 @app.route("/bite", methods=['POST'])
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")

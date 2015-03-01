@@ -35,9 +35,10 @@ def bite():
     else:
         counts[date] = 1
 
-    requests.put("https://dntbite.firebaseio.com/users/neil/counts.json", data =json.dumps(counts))
+    a = requests.put("https://dntbite.firebaseio.com/users/neil/counts.json", data =json.dumps(counts))
     requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=to_send)
-    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
+    requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
+    return str(counts)
 
 @app.route("/<file_name>.<ext>")
 def send_file(file_name, ext):

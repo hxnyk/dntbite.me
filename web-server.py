@@ -1,9 +1,10 @@
 # Main web server
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, redirect
 from twilio.rest import TwilioRestClient
 import os
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 
 def send_message_to(number, message):
     account_sid = os.environ.get("TWILIO_SID")
@@ -21,6 +22,10 @@ def home():
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")
     return "Bite"
+
+@app.route("/<file_name>.<ext>")
+def send_file(file_name, ext):
+    return redirect('/static/' + file_name + '.' + ext)
 
 port = int(os.environ.get("PORT", 5000))
 app.run(host='0.0.0.0', port=port)

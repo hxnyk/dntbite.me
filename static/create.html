@@ -55,7 +55,7 @@
 		function submit() {
 			// Load posts from firebase
       		var ref = new Firebase("dntbite.firebaseio.com/users");
-      		
+
 			var formName = $("#newname").val().toLowerCase();
 			var formPassword = $("#newpassword").val();
 			var formUsername = $("#newusername").val();
@@ -67,6 +67,7 @@
 					number:formNumber,
 					lastBittenTime:lastBitten
 				})
+			window.location.href = "progress.html"
 		}
 	</script>
 </html>

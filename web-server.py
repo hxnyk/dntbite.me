@@ -2,6 +2,8 @@
 from flask import Flask, request, send_from_directory, redirect
 from twilio.rest import TwilioRestClient
 import os
+import requests
+import time
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -21,7 +23,8 @@ def home():
 @app.route("/bite", methods=['POST'])
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")
-    return "Bite"
+    # add to firebase with current unix time
+    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data={"time": str(time.localtime())}).text
 
 @app.route("/<file_name>.<ext>")
 def send_file(file_name, ext):

@@ -25,8 +25,9 @@ def home():
 def bite():
     #send_message_to("4407592260", "Stop biting your nails!!!")
     # add to firebase with current unix time
-    requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=json.dumps(time.time()))
-    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=json.dumps(time.time())).text
+    to_send = json.dumps(time.time())
+    requests.put("https://dntbite.firebaseio.com/users/neil/lastBittenTime.json", data=to_send)
+    return requests.post("https://dntbite.firebaseio.com/users/neil/biteTimes.json", data=to_send).text
 
 @app.route("/<file_name>.<ext>")
 def send_file(file_name, ext):

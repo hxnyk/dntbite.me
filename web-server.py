@@ -8,7 +8,6 @@ import datetime
 import json
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 
 def send_message_to(number, message):
     account_sid = os.environ.get("TWILIO_SID")
@@ -24,7 +23,7 @@ def home():
 
 @app.route("/bite", methods=['POST'])
 def bite():
-    send_message_to("4407592260", "Stop biting your nails!!!")
+    send_message_to("4169945884", "Stop biting your nails!!!")
     # add to firebase with current unix time
     t = time.time()
     to_send = json.dumps(t)
